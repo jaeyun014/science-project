@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#f2f4ee">
+  <title>원소실 — 가상 화학 실험실</title>
+  <script type="module" crossorigin src="./assets/index-CevpKVxO.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-Um_PV2E2.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#"><span>⌬</span><b>나만의 실험실</b><small>MY GOOD LAB</small></a>
+    <div class="status"><i></i> 세션 실행 중 · 저장 안 함</div>
+    <div class="top-actions">
+      <button id="compendiumButton" class="outline-button">▦ 현상 도감 <span id="unlockCount">0 / 8</span></button>
+      <button id="resetButton" class="outline-button">↻ 실험 초기화</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="guide panel">
+      <div class="guide-content">
+      <p class="eyebrow">GUIDED EXPERIMENT</p>
+      <label for="guideSelect">대표 실험</label>
+      <select id="guideSelect"></select>
+      <div id="guideIntro" class="guide-intro"></div>
+      <ol id="guideSteps" class="steps"></ol>
+      </div>
+      <div class="guide-tools">
+        <p class="eyebrow">LAB CONTROLS</p>
+        <div class="actions">
+          <button id="heatButton"><strong>⌁</strong>가열 <small>건조 시료 · 가상 가열로</small></button>
+          <button id="coolButton"><strong>❄</strong>냉각 <small>25°C까지 냉각</small></button>
+          <button id="powerButton"><strong>ϟ</strong>전기 공급 <small>6.0 V</small></button>
+          <button id="undoButton"><strong>↶</strong>되돌리기 <small>이전 상태 복원</small></button>
+        </div>
+      </div>
+    </aside>
+
+    <section class="workspace">
+      <div class="section-title">
+        <div><p class="eyebrow">WORKBENCH</p><h1>2D 실험대</h1></div>
+        <p>도구를 탭해 선택한 뒤 시약을 탭해 넣으세요.</p>
+      </div>
+
+      <div class="chemical-tray panel">
+        <p class="eyebrow">CHEMICALS · 물 100 mL / 수용액 0.010 M·100 mL / 고체 0.001 mol</p>
+        <div id="chemicalList" class="chemical-list"></div>
+        <div id="toolSection" class="tool-section" hidden>
+          <p class="eyebrow">LAB TOOLS · 클릭하여 꺼내기</p>
+          <div id="toolList" class="chemical-list"></div>
+        </div>
+      </div>
+
+      <div class="bench panel">
+        <div class="bench-hint"><div><b id="selectedToolName">선택한 도구 없음</b><small>탭하여 선택 · 손잡이로 이동</small></div><button id="deleteToolButton" class="outline-button" hidden>선택 도구 삭제</button></div>
+        <div id="toolArea" class="tool-area"></div>
+      </div>
+    </section>
+
+    <aside class="results">
+      <section class="panel measurements">
+        <p class="eyebrow">LIVE MEASUREMENT</p><h2>모델 계산값</h2>
+        <div class="metric-grid">
+          <div><span>온도</span><b id="temperature">25°C</b></div>
+          <div><span>pH (25°C·이상용액)</span><b id="ph">7.0</b></div>
+          <div><span>도구 내 잔류 질량</span><b id="mass">0.0 g</b></div>
+          <div><span>생성 기체 합계</span><b id="gas">0 µmol</b></div>
+          <div><span>용매 기준 부피</span><b id="volume">0 mL</b></div>
+          <div><span>전기분해 전하 / 시간</span><b id="charge">0 C / 0 s</b></div>
+          <div><span>전압</span><b id="voltage">0.0 V</b></div>
+          <div><span>전류 (희석용액 추정)</span><b id="current">0.000 mA</b></div>
+        </div>
+        <p class="model-assumptions">수용액 25°C 항온 · 부피는 용매 기준 근사 · 전류: 셀 상수 0.5 cm⁻¹ · 불활성 전극, 물 분해 효율 100% 가정</p>
+        <p id="modelNotice" class="model-notice" role="status"></p>
+        <h3>현재 조성</h3><div id="composition" class="composition empty">투입된 물질이 없습니다.</div>
+      </section>
+      <section class="panel log-panel">
+        <div class="log-title"><b>실험 기록</b><small id="eventCount">0 events</small></div>
+        <div id="eventLog" class="event-log"><p class="empty-log">실험을 시작하면 조작과 반응이 기록됩니다.</p></div>
+      </section>
+    </aside>
+  </main>
+
+  <dialog id="compendiumDialog" class="compendium-dialog">
+    <div class="compendium-shell">
+      <header class="compendium-header">
+        <div><p class="eyebrow">SCIENTIFIC PHENOMENA</p><h2>현상 도감</h2></div>
+        <button id="closeCompendium" aria-label="도감 닫기">×</button>
+      </header>
+      <div class="compendium-progress"><span id="compendiumProgress"></span><div><i id="compendiumProgressBar"></i></div></div>
+      <div class="compendium-body">
+        <section id="challengeList" class="challenge-list"></section>
+        <section id="challengeDetail" class="challenge-detail"></section>
+      </div>
+    </div>
+  </dialog>
+
+  <div id="achievementToast" class="achievement-toast" role="status" aria-live="polite" aria-atomic="true">
+    <span class="achievement-icon">✓</span>
+    <div>
+      <small>CHALLENGE UNLOCKED</small>
+      <b id="achievementTitle"></b>
+      <p id="achievementAction"></p>
+    </div>
+  </div>
+
+  <footer>교육용 이상용액 모델 · 대기로 빠져나간 기체는 잔류 질량에서 제외합니다. 지원하지 않는 혼합·온도 조건은 제한되며, 계산 범위 밖의 값은 —로 표시합니다. 실제 실험에서는 안전 지침을 따르세요.</footer>
+</body>
+</html>
