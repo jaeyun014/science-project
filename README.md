@@ -23,6 +23,26 @@ npm run preview
 
 `dist/`의 내용을 정적 호스팅에 배포합니다. 상대 자산 경로를 사용하므로 하위 경로 배포도 가능합니다. 빌드 없이 HTTP 서버로 원본을 제공할 때는 `index.html`, `styles.css`, `app.js`, `model.js`가 모두 필요합니다.
 
+### Docker Compose 배포
+
+루트의 `docker-compose.yml`로 실행합니다.
+
+```sh
+docker compose up -d --build
+```
+
+`web` 서비스는 Node.js로 빌드한 정적 파일을 Nginx의 컨테이너 포트 80에서 제공합니다. `science26.public=true` 라벨을 붙여 공개 대상으로 지정했으며, 호스트 포트는 배포 플랫폼이 연결하도록 고정하지 않았습니다.
+
+현재 프로젝트에는 별도 API 서비스가 없어 `science26.api=true` 라벨을 붙일 서비스가 없습니다. DB·Redis 서비스도 포함하지 않습니다. 현재 정적 앱에서는 자동 주입되는 `DATABASE_URL`·`REDIS_URL`을 사용하지 않으며, 이 연결 정보를 브라우저 번들에 포함하지 않습니다.
+
+로컬 브라우저에서 컨테이너를 확인하려면 다음처럼 임시 포트를 연결할 수 있습니다.
+
+```sh
+docker compose run --rm --build -p 8080:80 web
+```
+
+브라우저에서 `http://localhost:8080`을 엽니다.
+
 ## 기능
 
 - 물질 클릭·드래그 투입, 도구 생성·선택·이동·Backspace 삭제
