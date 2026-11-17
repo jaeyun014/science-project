@@ -7,14 +7,14 @@
 .workspace{grid-area:workspace;min-width:0}.section-title{height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 4px}.section-title p{margin:0}.section-title h1{font-size:20px;margin:3px 0 0;letter-spacing:-.05em}.section-title>p{font-size:10px;color:var(--muted)}.chemical-tray{padding:12px;margin-bottom:10px}.chemical-tray>.eyebrow{margin:0 0 9px}.chemical-list{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.chemical-list button{min-width:0;border:1px solid #d0d7d0;background:#fff;border-radius:3px;padding:7px;display:grid;grid-template-columns:20px 1fr auto;gap:6px;align-items:center;text-align:left;cursor:grab}.chemical-list button:hover{border-color:#74837a;transform:translateY(-1px)}.chemical-list i{width:19px;height:27px;border:1px solid rgba(0,0,0,.12);border-radius:2px 2px 7px 7px}.chemical-list b,.chemical-list small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chemical-list b{font-size:9px}.chemical-list small{font:8px ui-monospace,monospace;color:#748078}.chemical-list em{font-style:normal;color:#87928b}
 .tool-section{margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}.tool-section>.eyebrow{margin:0 0 9px}.tool-section .chemical-list{grid-template-columns:repeat(3,1fr)}
 .bench{height:520px;position:relative;overflow:hidden;background-color:#eef1eb;background-image:linear-gradient(rgba(159,170,161,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(159,170,161,.18) 1px,transparent 1px);background-size:28px 28px}.bench:after{content:"";position:absolute;inset:42px 12px 12px;border:1px dashed rgba(119,133,123,.34);border-radius:4px;pointer-events:none}.bench-hint{position:absolute;z-index:2;left:16px;top:13px;margin:0;font-size:10px;color:var(--muted)}.bench-hint span{font:9px ui-monospace,monospace;letter-spacing:.1em;color:#3f5148;margin-right:8px}.beaker-drop{width:180px;height:280px;border:1px solid rgba(148,161,151,.7);border-radius:5px;display:flex;flex-direction:column;align-items:center;justify-content:end;padding-bottom:15px;position:absolute;left:calc(50% - 90px);top:110px;background:rgba(255,255,255,.38);box-shadow:0 7px 22px rgba(39,57,47,.07);transition:background .2s,border-color .2s,box-shadow .2s;cursor:grab;touch-action:none;user-select:none;z-index:3}.beaker-drop:active,.beaker-drop.moving{cursor:grabbing;box-shadow:0 14px 30px rgba(39,57,47,.14);border-color:#65796d}.beaker-drop.dragging{background:rgba(232,255,69,.18);border-color:#506057}.beaker-drop>b{font-size:12px;margin-top:10px}.beaker-drop>span{font:9px ui-monospace,monospace;color:var(--muted);margin-top:4px}.glass{height:180px;width:135px;border:2px solid #82968e;border-top:7px double #82968e;border-radius:3px 3px 21px 21px;position:relative;overflow:hidden;background:rgba(255,255,255,.25)}.liquid{position:absolute;left:0;right:0;bottom:0;height:0;transition:height .4s,background .3s;border-top:1px solid rgba(63,98,88,.25)}.scale{position:absolute;right:10px;top:40px;display:grid;gap:28px}.scale i{width:15px;height:1px;background:#7c9189}.precipitate{position:absolute;bottom:0;left:0;right:0;height:15px;background:repeating-radial-gradient(circle,#fff 0 2px,#d9dacf 3px 5px);display:none}.bubbles{display:none}.bubbles i{position:absolute;bottom:3px;width:7px;height:7px;border:1px solid #6e969b;border-radius:50%;animation:bubble 2s infinite}.bubbles i:nth-child(1){left:20%}.bubbles i:nth-child(2){left:40%;animation-delay:.6s}.bubbles i:nth-child(3){left:65%;animation-delay:1s}.bubbles i:nth-child(4){left:80%;animation-delay:1.4s}@keyframes bubble{to{transform:translateY(-110px);opacity:0}}
-.tool-area{position:absolute;inset:42px 12px 12px;z-index:3}.tool-area-empty{width:100%;height:100%;display:grid;place-items:center;text-align:center;color:#7c8780;font-size:11px;line-height:1.7}.beaker-drop.selected{border:2px solid #365747;background:rgba(232,255,69,.12)}.beaker-drop.selected:before{content:'SELECTED';position:absolute;top:8px;background:var(--accent);padding:4px 7px;font:8px ui-monospace,monospace}.beaker-drop.test-tube .glass{width:65px;border-radius:3px 3px 30px 30px}.beaker-drop.flask .glass{width:145px;height:165px;clip-path:polygon(38% 0,62% 0,62% 25%,91% 91%,87% 100%,13% 100%,9% 91%,38% 25%);border-radius:0}.beaker-drop.flask .scale{display:none}
+.tool-area{position:absolute;inset:42px 12px 12px;z-index:3}.tool-area-empty{width:100%;height:100%;display:grid;place-items:center;text-align:center;color:#7c8780;font-size:11px;line-height:1.7}.beaker-drop.selected{border:2px solid #365747;background:rgba(232,255,69,.12)}.beaker-drop.selected:before{content:'SELECTED';position:absolute;top:8px;background:var(--accent);padding:4px 7px;font:8px ui-monospace,monospace}
 .electrodes{display:none;position:absolute;top:42px;gap:48px;z-index:3}.electrodes i{width:5px;height:145px;background:#303a36;border-radius:2px;box-shadow:0 -9px 0 #bdd53e}.heat-waves{display:none;position:absolute;bottom:52px;gap:15px}.heat-waves i{width:4px;height:24px;border-left:2px solid #e1694a;border-radius:50%;animation:heat 1s infinite alternate}@keyframes heat{to{transform:translateY(-8px);opacity:.2}}
 .guide-tools{margin-top:18px;padding-top:15px;border-top:1px solid var(--line)}.guide-tools>.eyebrow{margin:0 0 8px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:6px}.actions button{min-width:0;border:1px solid #bcc7be;background:rgba(255,255,255,.8);border-radius:4px;padding:9px;text-align:left;font-size:10px;font-weight:700;cursor:pointer}.actions button:hover{background:var(--accent);border-color:#879483}.actions strong{display:block;font:18px ui-monospace,monospace;color:#26503f}.actions small{display:block;font:8px ui-monospace,monospace;color:#768079;margin-top:2px}
 .results{grid-area:results;display:grid;gap:12px;align-content:start}.measurements{padding:16px}.measurements h2{font-size:17px;margin:5px 0 13px}.measurements h3{font:9px ui-monospace,monospace;letter-spacing:.1em;color:#758078;margin:18px 0 8px}.metric-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:3px;overflow:hidden}.metric-grid>div{padding:9px;border-bottom:1px solid var(--line)}.metric-grid>div:nth-child(odd){border-right:1px solid var(--line)}.metric-grid>div:nth-last-child(-n+2){border-bottom:0}.metric-grid span{display:block;font-size:9px;color:var(--muted)}.metric-grid b{font:15px ui-monospace,monospace}.composition{font-size:9px;color:var(--muted)}.composition>div{display:grid;grid-template-columns:62px 1fr auto;align-items:center;gap:6px;padding:6px 0;border-bottom:1px solid #e1e5df}.composition>div span{padding:4px;text-align:center;border-radius:2px;font:8px ui-monospace,monospace}.composition>div small{font:8px ui-monospace,monospace}.composition.empty{text-align:center;padding:12px}
 .compendium-dialog{width:min(960px,calc(100vw - 32px));height:min(700px,calc(100vh - 32px));padding:0;border:1px solid #8f9d93;border-radius:7px;background:#eef1eb;color:var(--ink);box-shadow:0 30px 90px rgba(20,35,28,.3)}.compendium-dialog::backdrop{background:rgba(20,29,25,.55);backdrop-filter:blur(4px)}.compendium-shell{height:100%;display:grid;grid-template-rows:auto auto 1fr}.compendium-header{display:flex;justify-content:space-between;align-items:center;padding:20px 22px;border-bottom:1px solid var(--line);background:var(--paper)}.compendium-header p{margin:0}.compendium-header h2{margin:4px 0 0;font-size:24px}.compendium-header button{width:34px;height:34px;border:1px solid var(--line);background:white;border-radius:4px;font-size:22px;cursor:pointer}.compendium-progress{padding:12px 22px;display:flex;gap:14px;align-items:center;font:10px ui-monospace,monospace}.compendium-progress>div{height:5px;background:#d5dcd5;flex:1;border-radius:4px;overflow:hidden}.compendium-progress i{display:block;height:100%;background:#557564;transition:width .3s}.compendium-body{min-height:0;display:grid;grid-template-columns:310px 1fr;border-top:1px solid var(--line)}.challenge-list{padding:12px;overflow:auto;border-right:1px solid var(--line);display:grid;gap:7px;align-content:start}.challenge-card{border:1px solid #c8d0c9;background:var(--paper);border-radius:4px;padding:11px;text-align:left;cursor:pointer;display:grid;grid-template-columns:32px 1fr;gap:9px}.challenge-card:hover,.challenge-card.active{border-color:#587061;background:#fff}.challenge-card.locked{opacity:.62}.challenge-card>span{width:30px;height:30px;display:grid;place-items:center;border:1px solid #aeb9b1;border-radius:50%;font:12px ui-monospace,monospace}.challenge-card.unlocked>span{background:#214f3d;color:var(--accent);border-color:#214f3d}.challenge-card b{display:block;font-size:11px}.challenge-card small{display:block;margin-top:3px;font:8px ui-monospace,monospace;color:#76817a}.challenge-detail{padding:28px;overflow:auto;background:#f8f9f5}.challenge-detail .detail-status{font:9px ui-monospace,monospace;color:#567063;letter-spacing:.12em}.challenge-detail h3{font-size:25px;margin:8px 0 5px}.challenge-detail .category{font-size:10px;color:#748078}.challenge-detail .challenge-goal{margin:20px 0;padding:13px;border-left:3px solid #a9c83d;background:#f1f6da;font-size:11px;line-height:1.65}.challenge-detail .locked-detail{margin-top:28px;padding:35px;border:1px dashed #aeb9b1;text-align:center;color:#7b867f}.detail-section{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}.detail-section b{display:block;font-size:10px;margin-bottom:6px}.detail-section p{font-size:11px;line-height:1.75;color:#4f5c55;margin:0}.detail-equation{font:14px ui-monospace,monospace!important;background:#e8ede7;padding:12px;border-radius:3px;color:#263c31!important}
 .log-panel{height:335px;overflow:hidden}.log-title{height:42px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;padding:0 12px;font-size:10px}.log-title small{font:8px ui-monospace,monospace;color:var(--muted)}.event-log{height:292px;overflow:auto}.event-log article{display:grid;grid-template-columns:25px 1fr;gap:6px;padding:9px;border-bottom:1px solid #e0e5df}.event-log article.reaction{background:#f2f8d6;border-left:3px solid #aec73e}.event-log time{font:8px ui-monospace,monospace;color:#8b958f}.event-log b{font-size:9px}.event-log p{font:8px/1.5 ui-monospace,monospace;color:#657069;margin:3px 0 0}.empty-log{text-align:center;color:#8b958f;font-size:9px;padding:65px 20px}footer{text-align:center;padding:18px;font:8px ui-monospace,monospace;color:#77827b}
 @media(max-width:1100px){.layout{grid-template-columns:1fr 220px;grid-template-areas:"workspace guide" "results results"}.results{grid-template-columns:1fr 1fr}.chemical-list{grid-template-columns:repeat(4,1fr)}}
-@media(max-width:720px){.topbar{grid-template-columns:1fr auto;padding:0 12px}.status,.brand small{display:none}.layout{display:flex;flex-direction:column}.guide{position:static;order:3}.workspace{order:1}.results{order:2;display:flex;flex-direction:column}.chemical-list{grid-template-columns:repeat(2,1fr)}.bench{height:500px}.section-title>p{display:none}.results .log-panel{height:280px}}
+@media(max-width:699px){.topbar{grid-template-columns:1fr auto;padding:0 12px}.status,.brand small{display:none}.layout{display:flex;flex-direction:column}.guide{position:static;order:3}.workspace{order:1}.results{order:2;display:flex;flex-direction:column}.chemical-list{grid-template-columns:repeat(2,1fr)}.bench{height:500px}.section-title>p{display:none}.results .log-panel{height:280px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 /* Readability scale — keep the LIVE MEASUREMENT panel unchanged. */
@@ -34,7 +34,7 @@ footer{font-size:10px}
 
 /* Achievement success feedback */
 .achievement-toast{position:fixed;right:22px;bottom:22px;z-index:100;display:grid;grid-template-columns:42px minmax(0,1fr);gap:12px;align-items:start;width:min(390px,calc(100vw - 32px));padding:15px;border:1px solid #75917f;border-radius:6px;background:#173f31;color:#fff;box-shadow:0 18px 50px rgba(18,39,30,.28);opacity:0;transform:translateY(18px);pointer-events:none;transition:opacity .25s,transform .25s}.achievement-toast.show{opacity:1;transform:translateY(0)}.achievement-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;background:var(--accent);color:#173f31;font-weight:800}.achievement-toast small{display:block;font:9px ui-monospace,monospace;letter-spacing:.13em;color:#bfcebf}.achievement-toast b{display:block;margin-top:3px;font-size:15px}.achievement-toast p{margin:7px 0 0;font-size:11px;line-height:1.55;color:#e1e9e2}.achievement-toast p:before{content:"해금 행동 · ";color:var(--accent);font-weight:700}
-@media(max-width:720px){.achievement-toast{right:16px;bottom:16px}}
+@media(max-width:699px){.achievement-toast{right:16px;bottom:16px}}
 
 .model-assumptions,.model-notice{font-size:11px;line-height:1.6;color:var(--muted);overflow-wrap:anywhere}.model-notice{color:#79521d}.model-notice:empty{display:none}.metric-grid b{overflow-wrap:anywhere}
 .chemical-list button{min-width:0}.chemical-list button>span{min-width:0;flex:1}.chemical-list b,.chemical-list small{white-space:normal;overflow-wrap:anywhere}.chemical-list button>i,.chemical-list button>em{flex-shrink:0}
@@ -42,7 +42,7 @@ footer{font-size:10px}
 /* Touch controls and tablet workspace */
 button,select,a{-webkit-tap-highlight-color:transparent}button,select{touch-action:manipulation}button:disabled{opacity:.45;cursor:default}button:focus-visible,select:focus-visible,.beaker-drop:focus-visible{outline:3px solid #527e64;outline-offset:3px}
 .outline-button{min-height:48px}.guide select{min-height:48px;font-size:16px}.actions button{min-height:76px;font-size:14px}.actions small{font-size:11px;line-height:1.4}.chemical-list button{min-height:72px;padding:10px;gap:8px}.chemical-list b{font-size:13px;line-height:1.4}.chemical-list small{font-size:11px;line-height:1.4;margin-top:3px}.chemical-list{gap:8px}.compendium-header button{width:48px;height:48px}.challenge-card{min-height:64px}
-.guide-content{min-width:0;min-height:0}.guide-content>.eyebrow{font-size:11px}.tool-visual{display:contents}.tool-visual>b{font-size:14px;margin-top:10px}.tool-visual>span{font:11px ui-monospace,monospace;margin-top:4px;color:var(--muted)}.beaker-drop{touch-action:pan-y;cursor:pointer}.beaker-drop .glass{height:164px}.beaker-drop.flask .glass{height:156px}.tool-handle{position:absolute;inset:0 0 auto;min-height:44px;display:grid;place-items:center;touch-action:none;cursor:grab;border-bottom:1px solid var(--line);font-size:12px;color:#4c6657;letter-spacing:.03em;border-radius:4px 4px 0 0;background:#f1f4ed}.beaker-drop.selected:before{display:none}.beaker-drop.selected .tool-handle{background:#e8ff8d;color:#203f30}.moving .tool-handle{cursor:grabbing}
+.guide-content{min-width:0;min-height:0}.guide-content>.eyebrow{font-size:11px}.tool-visual{display:contents}.tool-visual>b{font-size:14px;margin-top:10px}.tool-visual>span{font:11px ui-monospace,monospace;margin-top:4px;color:var(--muted)}.beaker-drop{touch-action:pan-y;cursor:pointer}.beaker-drop .glass{height:164px}.tool-handle{position:absolute;inset:0 0 auto;min-height:44px;display:grid;place-items:center;touch-action:none;cursor:grab;border-bottom:1px solid var(--line);font-size:12px;color:#4c6657;letter-spacing:.03em;border-radius:4px 4px 0 0;background:#f1f4ed}.beaker-drop.selected:before{display:none}.beaker-drop.selected .tool-handle{background:#e8ff8d;color:#203f30}.moving .tool-handle{cursor:grabbing}
 .bench-hint{inset:8px 12px auto;display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:48px}.bench-hint b{font-size:13px;display:block}.bench-hint small{font-size:11px;display:block;margin-top:3px}.bench-hint button{font-size:12px;flex-shrink:0}.tool-area,.bench:after{inset:68px 12px 12px}
 .model-assumptions,.model-notice{font-size:12px}.composition{font-size:12px}.composition>div{grid-template-columns:76px minmax(0,1fr) auto;gap:8px;min-height:44px}.composition>div span,.composition>div small{font-size:10px;overflow-wrap:anywhere}.composition>div b{overflow-wrap:anywhere}.metric-grid span{font-size:11px;line-height:1.4;margin-bottom:5px}.metric-grid b{font-size:16px}.metric-grid>div{min-width:0;min-height:70px}.measurements h3{font-size:12px;letter-spacing:0}.event-log b{font-size:13px}.event-log p{font-size:12px;line-height:1.65}.event-log article{padding:12px}.log-title{height:48px}.event-log{height:calc(100% - 48px);overscroll-behavior:contain}footer{font-size:12px;line-height:1.7}
 
@@ -66,3 +66,242 @@ button,select,a{-webkit-tap-highlight-color:transparent}button,select{touch-acti
 @media(min-width:960px) and (max-width:1366px) and (max-height:850px){.section-title{height:44px}.chemical-list button{min-height:64px;padding:7px}.chemical-list b{font-size:12px}.chemical-list small{font-size:10px;line-height:1.3}.chemical-tray{padding:10px}.bench{height:360px}}
 @media(min-width:700px) and (max-width:1366px){.achievement-toast{left:16px;right:auto;max-width:calc(100vw - 324px)}}
 @media(max-width:699px){body{padding-bottom:calc(140px + env(safe-area-inset-bottom))}.achievement-toast{bottom:calc(140px + env(safe-area-inset-bottom))}}
+
+/* Tablet typography: preserve Korean words and scientific notation. */
+.chemical-dose { display:flex!important; flex-wrap:wrap; column-gap:6px; row-gap:2px }
+.chemical-dose>span { white-space:nowrap }
+@media(min-width:700px) and (max-width:1366px){
+  .layout{display:grid}
+  .guide-intro h2,.guide-intro p,.steps p,.actions button,.actions small,
+  .chemical-list b,.challenge-card b,.challenge-detail h3,.challenge-goal,
+  .detail-section p,.event-log b,.event-log p{word-break:keep-all;overflow-wrap:break-word}
+  .section-title h1{font-size:23px;line-height:1.3;letter-spacing:-.035em}
+  .chemical-tray>.eyebrow{font-family:inherit;font-size:11px;letter-spacing:.025em;line-height:1.7;word-break:keep-all}
+  .chemical-list{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}
+  .chemical-list button{padding:10px;min-height:94px;grid-template-columns:14px minmax(0,1fr);align-items:start;gap:8px}
+  .chemical-list i{margin-top:2px}
+  .chemical-list b{font-size:13px;line-height:1.5;letter-spacing:-.025em}
+  .chemical-list small{font-size:10px;line-height:1.5;margin-top:5px;letter-spacing:-.025em}
+  .chemical-dose{flex-direction:column}
+  .guide-intro h2{font-size:20px;line-height:1.4;letter-spacing:-.035em}
+  .guide-intro p,.steps p{font-size:13px;line-height:1.75}
+  .steps li{grid-template-columns:24px minmax(0,1fr);align-items:start;padding:9px 4px}
+  .steps li>span{margin-top:1px}
+  .actions button{font-size:13px;line-height:1.5;padding:10px;min-height:88px}
+  .actions small{font-family:inherit;font-size:11px;line-height:1.6;margin-top:4px;letter-spacing:-.025em}
+  .bench-hint>div{min-width:0}
+  .bench-hint b{font-size:13px;line-height:1.4;word-break:keep-all}
+  .bench-hint small{font-size:11px;line-height:1.5;word-break:keep-all}
+  .bench-hint button{font-size:11px;padding:8px}
+  .metric-grid span{word-break:keep-all;line-height:1.5}
+  .metric-grid b{font-size:16px;white-space:nowrap}
+  .event-log article{grid-template-columns:25px minmax(0,1fr);gap:8px}
+  .event-log b{line-height:1.6}
+  .model-assumptions,footer{word-break:keep-all;overflow-wrap:break-word;line-height:1.8}
+  .challenge-card{grid-template-columns:30px minmax(0,1fr)}
+  .challenge-card b{font-size:13px;line-height:1.5}
+  .challenge-detail h3{font-size:26px;line-height:1.4;letter-spacing:-.035em}
+  .detail-equation{overflow-x:auto;white-space:nowrap}
+}
+@media(min-width:700px) and (max-width:959px){
+  .chemical-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tool-section .chemical-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .results{grid-template-columns:minmax(0,1fr)}
+  .results .log-panel{height:300px}
+}
+@media(min-width:960px) and (max-width:1366px){
+  .chemical-list{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+
+@media(min-width:960px) and (max-width:1366px) and (max-height:850px){
+  .chemical-list button{min-height:80px;padding:8px;gap:6px}
+  .chemical-list b{font-size:12px}
+  .chemical-list small{margin-top:3px}
+  .bench{height:340px}
+}
+
+/* Size reagent cards by their content width, including wide tablet viewports. */
+#chemicalList{
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));
+  gap:8px;
+}
+#chemicalList button{
+  grid-template-columns:14px minmax(0,1fr);
+  align-items:center;
+  gap:8px;
+  padding:12px 10px;
+  min-height:96px;
+  text-align:left;
+}
+#chemicalList button>i{width:14px;margin:0}
+#chemicalList button>em{display:none}
+#chemicalList b{
+  font-size:13px;
+  line-height:1.5;
+  letter-spacing:-.025em;
+  white-space:nowrap;
+  overflow:visible;
+  text-overflow:clip;
+  word-break:normal;
+  overflow-wrap:normal;
+}
+#chemicalList .chemical-dose{
+  flex-direction:column;
+  gap:2px;
+  margin-top:5px;
+  font-size:11px;
+  line-height:1.5;
+  letter-spacing:-.025em;
+  overflow:visible;
+}
+#chemicalList .chemical-dose>span{
+  white-space:nowrap;
+  word-break:normal;
+  overflow-wrap:normal;
+}
+
+/* Compact tablet view: show measurements and populated results first. */
+@media (min-width:700px){
+  .model-assumptions,.measurements>.eyebrow,.metric-secondary,
+  .guide-content>.eyebrow,.workspace .eyebrow,.guide-tools>.eyebrow,
+  .actions small,.brand small,.status,footer{display:none}
+  .measurements{padding:16px}
+  .measurements h2{font-size:18px;margin:0 0 12px}
+  .metric-grid>div{padding:10px;min-height:66px;border-right:0;border-bottom:1px solid var(--line)}
+  .metric-grid>div:nth-child(1),.metric-grid>div:nth-child(3),.metric-grid>div:nth-child(6){border-right:1px solid var(--line)}
+  .metric-grid>div:nth-child(6){border-bottom:0}
+  .measurements:not(:has(#composition>div))>h3,
+  #composition:not(:has(>div)){display:none}
+  .measurements:has(#composition.empty) #modelNotice{display:none}
+  .log-panel:has(.empty-log){display:none}
+  .results:has(.empty-log){grid-template-columns:minmax(0,1fr)}
+  .results .log-panel{height:auto;max-height:280px}
+  .event-log{height:auto;max-height:232px}
+  .log-title small{font-size:11px}
+  .actions button{min-height:64px;text-align:center}
+  .actions strong{margin-bottom:4px}
+  .chemical-tray{padding:10px}
+  .section-title{height:48px}
+  .guide-intro{margin:10px 0;padding:10px 0}
+  .guide-intro p{display:block}
+  .bench-hint small{display:none}
+}
+
+/* Tablet: a horizontal guide above the bench, with reagents in a right rail. */
+@media (min-width:700px){
+  .layout{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) clamp(300px, 34vw, 380px);
+    grid-template-areas:"guide guide" "title materials" "bench materials" "results materials";
+    grid-template-rows:auto auto auto 1fr;
+    align-items:start;
+    gap:12px;
+    padding:12px;
+  }
+  .workspace{display:contents}
+  .workspace>.section-title{grid-area:title;height:36px;min-width:0}
+  .workspace>.bench{grid-area:bench;height:500px;min-width:0}
+  .workspace>.chemical-tray{
+    grid-area:materials;min-width:0;margin:0;padding:10px;
+    max-height:800px;overflow-y:auto;overscroll-behavior:contain;
+  }
+  #chemicalList{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #chemicalList button{min-height:78px;padding:9px 10px}
+  #chemicalList b{white-space:normal;word-break:keep-all;overflow-wrap:anywhere;font-size:12px}
+  #chemicalList .chemical-dose{font-size:10px}
+  .tool-section .chemical-list{grid-template-columns:minmax(0,1fr)}
+  .tool-section .chemical-list button{grid-template-columns:18px minmax(0,1fr);min-height:60px}
+  .tool-section .chemical-list em{display:none}
+  .guide{
+    position:static;top:auto;max-height:none;min-width:0;padding:14px;
+    display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:center;
+  }
+  .guide-content{
+    display:grid;grid-template-columns:180px minmax(0,1fr);gap:10px 16px;
+    overflow:visible;padding:0;scrollbar-gutter:auto;max-height:none;
+  }
+  .guide-content>label{display:none}
+  .guide select{grid-column:1;align-self:center;min-width:0;font-size:14px}
+  .guide-intro{grid-column:2;margin:0;padding:0;border:0;min-width:0}
+  .guide-intro h2{font-size:18px;line-height:1.4;word-break:keep-all}
+  .guide-intro p{font-size:13px;line-height:1.6;word-break:keep-all}
+  .steps{grid-column:1/-1;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:6px}
+  .steps li{padding:7px;grid-template-columns:23px minmax(0,1fr);gap:6px;align-items:start}
+  .steps p{font-size:12px;line-height:1.5;word-break:keep-all}
+  .guide-tools{margin:0;padding:0;border:0;position:static;box-shadow:none}
+  .actions{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+  .actions button{min-height:68px;padding:8px 4px;font-size:12px;white-space:nowrap;text-align:center}
+  .results{grid-area:results;min-width:0;grid-template-columns:minmax(0,1fr)}
+  .achievement-toast{left:16px;right:auto;max-width:calc(100vw - 288px)}
+}
+@media (min-width:700px) and (max-width:1023px){
+  .guide{grid-template-columns:minmax(0,1fr)}
+  .guide-tools{padding-top:10px;border-top:1px solid var(--line)}
+  .actions button{min-height:52px;display:flex;align-items:center;justify-content:center;gap:8px}
+  .actions strong{margin:0}
+  .layout{grid-template-columns:minmax(0,1fr) clamp(300px, 36vw, 360px)}
+  .workspace>.bench{height:500px}
+}
+
+.chemical-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:2px 0 10px;font-size:14px}
+.chemical-heading button{min-height:36px;padding:6px 10px;border:1px solid var(--line);border-radius:4px;background:#fff;color:inherit;font:inherit;cursor:pointer}
+#chemicalSearch{width:100%;min-height:40px;box-sizing:border-box;margin:0 0 10px;padding:8px 10px;border:1px solid var(--line);border-radius:4px;font:inherit}
+#chemicalSearch[hidden],#chemicalList button[hidden],.chemical-search-empty[hidden]{display:none}
+.chemical-search-empty{font-size:13px;color:var(--muted);margin:10px 0}
+
+/* Keep free-experiment tools ahead of the long reagent list. */
+.tool-section{margin:0 0 12px;padding:0 0 12px;border-top:0;border-bottom:1px solid var(--line)}
+@media (min-width:700px){
+  .tool-section>.eyebrow{display:block;font-family:inherit;font-size:13px;letter-spacing:0;font-weight:700}
+  .tool-section .chemical-list button{background:#eaf2df;border-color:#a5b498}
+  .tool-section .chemical-list b{white-space:nowrap;font-size:13px}
+  .tool-section .chemical-list small{display:none}
+}
+
+/* Hands-on onboarding keeps the actual laboratory controls available. */
+.tutorial-card{position:sticky;top:0;z-index:40;margin:12px;padding:16px 20px;background:#173f31;color:#fff;border:1px solid #75917f;border-radius:8px;box-shadow:0 8px 24px #173f3120;max-width:900px}
+.tutorial-card[hidden]{display:none}.tutorial-top{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:12px;color:#d3e2cf}.tutorial-card h2{font-size:19px;margin:8px 0}.tutorial-card p{font-size:14px;line-height:1.8;margin:0;word-break:keep-all}.tutorial-card button{min-height:44px;padding:8px 14px;border:1px solid #91ac91;border-radius:4px;background:transparent;color:white;font:inherit;cursor:pointer}.tutorial-card #tutorialNext{background:#e8ff8d;color:#173f31;margin-top:12px;font-weight:700}.tutorial-card button[hidden]{display:none}.tutorial-target{outline:3px solid #61852a!important;outline-offset:4px;scroll-margin-top:260px;box-shadow:0 0 0 7px #d9f39790!important}.top-actions{flex-wrap:wrap}
+@media(max-width:699px){.tutorial-card{margin:8px;padding:12px}.tutorial-card h2{font-size:17px}.tutorial-card p{font-size:13px}.tutorial-target{scroll-margin-top:280px}.topbar{grid-template-columns:1fr}.top-actions{justify-content:flex-start}}
+
+/* Stable tutorial frame: step changes do not push the laboratory around. */
+.tutorial-card{height:214px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:flex-start}
+.tutorial-card>div[role="status"]{flex:1;min-height:0}
+.tutorial-card h2{line-height:1.4}
+.tutorial-card #tutorialNext{align-self:flex-start;margin-top:8px;min-height:44px}
+.tutorial-card #tutorialNext[hidden]{display:block;visibility:hidden;pointer-events:none}
+@media(max-width:699px){.tutorial-card{height:256px}.tutorial-card p{line-height:1.65}}
+
+/* Tablet: put the event timeline directly under the experiment instructions. */
+@media (min-width:700px){
+  .layout{
+    grid-template-areas:"guide guide" "activity activity" "title materials" "bench materials" "results results";
+    grid-template-rows:auto auto auto minmax(380px,auto) auto;
+  }
+  .results{display:contents}
+  .workspace>.chemical-tray{max-height:548px}
+  .results>.log-panel{grid-area:activity;width:100%;height:210px;max-height:210px}
+  .results>.measurements{grid-area:results;width:100%;padding:14px}
+  .event-log{height:162px;max-height:162px;overflow:auto}
+  .log-title{height:46px;padding:0 14px}
+  .event-log article{grid-template-columns:30px minmax(0,1fr);padding:8px 12px}
+  .event-log p{margin-top:2px}
+  .measurements h2{font-size:20px;margin:0 0 10px}
+  .metric-grid{grid-template-columns:repeat(2,minmax(0,1fr));border:0;gap:8px;overflow:visible}
+  .metric-grid>div,.metric-grid>div:nth-child(n){
+    min-height:80px;padding:12px;border:1px solid #b8c5bb;border-radius:5px;
+    background:#fff;display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .metric-grid span{font-size:12px;line-height:1.35;margin:0;color:#59675f}
+  .metric-grid b{font-size:20px;line-height:1.25;color:#18201d;white-space:nowrap}
+  .model-assumptions{display:none}
+  .measurements h3{font-size:13px;margin:12px 0 4px}
+  .composition{margin:0}
+  .model-notice{margin:8px 0 0}
+}
+@media (min-width:700px) and (max-width:1023px){
+  .layout{grid-template-areas:"guide guide" "activity activity" "title materials" "bench materials" "results results"}
+  .metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .results>.measurements{padding:12px}
+  .metric-grid>div,.metric-grid>div:nth-child(n){min-height:70px;padding:10px}
+  .metric-grid b{font-size:18px}
+}

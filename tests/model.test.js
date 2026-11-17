@@ -107,3 +107,15 @@ test('all allowed two-dose combinations conserve mass and electrical charge',()=
     for(const n of Object.values(t.contents))assert.ok(Number.isFinite(n)&&n>=0);
   }
 });
+
+ test('neutralization releases heat once, mixes by mass, and respects limiting reagent',()=>{
+  const t=m.createSample();m.addDose(t,'hcl');m.addDose(t,'naoh');
+  near(t.reactionHeat,57.3,1e-9);
+  near(t.temperature,25+57.3/(m.mass(t)*4.184),1e-9);
+  const temperature=t.temperature;m.react(t);near(t.temperature,temperature,1e-9);
+  const oldMass=m.mass(t);m.addDose(t,'distilled-water');
+  near(t.temperature,25+(temperature-25)*oldMass/m.mass(t),1e-9);
+  m.addDose(t,'naoh');near(t.reactionHeat,57.3,1e-9);
+  const reverse=m.createSample();m.addDose(reverse,'naoh');m.addDose(reverse,'hcl');
+  near(reverse.temperature,temperature,1e-9);
+ });

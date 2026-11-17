@@ -7,7 +7,7 @@ function lab() {
   const timers=new Map();let next=1,now=0;
   const context=vm.createContext({ model, structuredClone, Date:{now:()=>now},
     setTimeout:()=>1,clearTimeout(){},setInterval(fn){const id=next++;timers.set(id,fn);return id;},clearInterval(id){timers.delete(id);} });
-  const source=fs.readFileSync(new URL('../app.js',import.meta.url),'utf8').replace(/^import \* as model from .*;\n/,'').replace(/initialize\(\);\s*$/,'');
+  const source=fs.readFileSync(new URL('../app.js',import.meta.url),'utf8').replace(/^import \* as model from .*;\n/,'').replace(/initialize\(\);\s*initializeTutorial\(\);\s*$/,'');
   vm.runInContext(source+'\nrender = () => {}; showAchievementToast = () => {};',context);
   return {setDocument:doc=>{context.document=doc;},run:s=>vm.runInContext(s,context),tick:()=>{now+=600;[...timers.values()].forEach(fn=>fn());},timers};
 }
@@ -44,7 +44,7 @@ test('thermal reset/undo cancel processing; cooling stops at 25°C',()=>{
   a.run('toggleHeating()');a.tick();a.run('toggleCooling()');for(let i=0;i<4;i++)a.tick();assert.equal(a.run('selectedTool().temperature'),25);assert.equal(a.timers.size,0);
 });
 test('free tools remain independent; delete/undo restore timers and sample',()=>{
-  const a=lab();a.run("state.guideIndex=-1;reset();createLabTool('beaker');addChemical('sulfate');togglePower();createLabTool('flask');addChemical('hcl')");a.tick();
+  const a=lab();a.run("state.guideIndex=-1;reset();createLabTool('beaker');addChemical('sulfate');togglePower();createLabTool('beaker');addChemical('hcl')");a.tick();
   assert.equal(a.run("amount(state.tools[0],'h')"),0);assert.equal(a.run('state.tools[1].gases.hydrogen'),undefined);
   a.run('deleteSelectedTool();undo()');assert.equal(a.run('state.tools.length'),2);assert.equal(a.timers.size,1);
 });
@@ -71,4 +71,15 @@ test('touch body permits scrolling; touch handle moves the tool and undo restore
   event.target.closest=()=>({});handlers.get('pointerdown')(event);assert.equal(captured,true);
   handlers.get('pointermove')({...event,clientX:100,clientY:140});assert.equal(a.run('selectedTool().x'),84);assert.equal(a.run('selectedTool().y'),128);
   handlers.get('pointercancel')(event);assert.equal(captured,false);a.run('undo()');assert.equal(a.run('selectedTool().x'),24);assert.equal(a.run('selectedTool().y'),68);
+});
+
+
+test('tutorial waits for actual electrolysis and thermal change',()=>{
+  const a=lab();
+  a.run("renderTutorial=()=>{};reset();tutorialIndex=4;addChemical('sulfate');togglePower()");
+  assert.equal(a.run('tutorialIndex'),4);
+  a.tick();assert.equal(a.run('tutorialIndex'),5);
+  a.run("state.guideIndex=2;reset();tutorialIndex=10;addChemical('caco3');toggleHeating()");
+  assert.equal(a.run('tutorialIndex'),10);
+  a.tick();assert.equal(a.run('tutorialIndex'),11);
 });

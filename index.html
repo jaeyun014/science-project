@@ -12,10 +12,17 @@
     <a class="brand" href="#"><span>⌬</span><b>나만의 실험실</b><small>MY GOOD LAB</small></a>
     <div class="status"><i></i> 세션 실행 중 · 저장 안 함</div>
     <div class="top-actions">
+      <button id="tutorialStart" class="outline-button">? 조작 안내</button>
       <button id="compendiumButton" class="outline-button">▦ 현상 도감 <span id="unlockCount">0 / 8</span></button>
       <button id="resetButton" class="outline-button">↻ 실험 초기화</button>
     </div>
   </header>
+
+  <section id="tutorialCard" class="tutorial-card" aria-label="조작 튜토리얼" hidden>
+    <div class="tutorial-top"><span id="tutorialProgress"></span><button id="tutorialSkip">건너뛰기</button></div>
+    <div role="status" aria-live="polite" aria-atomic="true"><h2 id="tutorialTitle"></h2><p id="tutorialText"></p></div>
+    <button id="tutorialNext">확인했어요</button>
+  </section>
 
   <main class="layout">
     <aside class="guide panel">
@@ -44,12 +51,15 @@
       </div>
 
       <div class="chemical-tray panel">
-        <p class="eyebrow">CHEMICALS · 물 100 mL / 수용액 0.010 M·100 mL / 고체 0.001 mol</p>
-        <div id="chemicalList" class="chemical-list"></div>
+        <div class="chemical-heading"><b>재료</b><button id="chemicalSearchToggle" type="button" aria-expanded="false" aria-controls="chemicalSearch">⌕ 검색</button></div>
+        <input id="chemicalSearch" type="search" placeholder="이름 또는 화학식 검색" aria-label="재료 검색" hidden>
+        <p id="chemicalSearchEmpty" class="chemical-search-empty" hidden>검색 결과가 없습니다.</p>
         <div id="toolSection" class="tool-section" hidden>
-          <p class="eyebrow">LAB TOOLS · 클릭하여 꺼내기</p>
+          <p class="eyebrow">실험 도구 추가</p>
           <div id="toolList" class="chemical-list"></div>
         </div>
+        <div id="chemicalList" class="chemical-list"></div>
+
       </div>
 
       <div class="bench panel">
@@ -64,14 +74,10 @@
         <div class="metric-grid">
           <div><span>온도</span><b id="temperature">25°C</b></div>
           <div><span>pH (25°C·이상용액)</span><b id="ph">7.0</b></div>
-          <div><span>도구 내 잔류 질량</span><b id="mass">0.0 g</b></div>
-          <div><span>생성 기체 합계</span><b id="gas">0 µmol</b></div>
-          <div><span>용매 기준 부피</span><b id="volume">0 mL</b></div>
-          <div><span>전기분해 전하 / 시간</span><b id="charge">0 C / 0 s</b></div>
-          <div><span>전압</span><b id="voltage">0.0 V</b></div>
+          <div class="metric-secondary"><span>전압</span><b id="voltage">0.0 V</b></div>
           <div><span>전류 (희석용액 추정)</span><b id="current">0.000 mA</b></div>
         </div>
-        <p class="model-assumptions">수용액 25°C 항온 · 부피는 용매 기준 근사 · 전류: 셀 상수 0.5 cm⁻¹ · 불활성 전극, 물 분해 효율 100% 가정</p>
+        <p class="model-assumptions">중화열: 단열·물의 비열 근사, 기타 반응열 미계산 · pH·전류·평형은 25°C 기준 근사 · 부피는 용매 기준 근사 · 전류: 셀 상수 0.5 cm⁻¹ · 불활성 전극, 물 분해 효율 100% 가정</p>
         <p id="modelNotice" class="model-notice" role="status"></p>
         <h3>현재 조성</h3><div id="composition" class="composition empty">투입된 물질이 없습니다.</div>
       </section>

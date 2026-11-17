@@ -45,7 +45,7 @@ export function change(t, id, delta) {
   if (value <= 0) delete t.contents[id]; else t.contents[id] = value;
 }
 export function createSample() {
-  return { contents: {}, gases: {}, used: {}, doses: {}, occurred: {}, temperature: 25, voltage: 0, heating: false, cooling: false, charge: 0, elapsed: 0 };
+  return { contents: {}, gases: {}, used: {}, doses: {}, occurred: {}, reactionHeat: 0, temperature: 25, voltage: 0, heating: false, cooling: false, charge: 0, elapsed: 0 };
 }
 export function volume(t) { return amount(t, 'water') * 18.015 / WATER_DENSITY; }
 export function mass(t) { return Object.entries(t?.contents || {}).reduce((sum, [id, n]) => sum + n * chemicals[id].mass, 0); }
@@ -55,7 +55,7 @@ export function doseLabel(id) { return id === 'water' || id === 'distilled-water
 export function additionIssue(t, id) {
   if (!inventory.includes(id)) return '등록되지 않은 물질입니다.';
   if (Object.values(t.doses).reduce((a,b)=>a+b,0) >= 200) return '한 도구의 최대 투입 횟수는 200회입니다. 새 도구를 사용하세요.';
-  if ((solutions[id] || ['water', 'distilled-water'].includes(id)) && t.temperature !== 25) return '고온 시료와 물의 혼합은 지원하지 않습니다. 먼저 25°C까지 냉각하세요.';
+  if ((solutions[id] || ['water', 'distilled-water'].includes(id)) && (t.temperature < 20 || t.temperature > 30)) return '고온 시료와 물의 혼합은 지원하지 않습니다. 먼저 25°C까지 냉각하세요.';
   if (t.heating) return '물질을 넣기 전에 가열을 중지하세요.';
   const has = (...ids) => ids.some(x => x === id || t.used[x]);
   const pair = (left, right) => has(...left) && has(...right);
@@ -69,12 +69,17 @@ export function additionIssue(t, id) {
 export function addDose(t, id) {
   const issue = additionIssue(t, id);
   if (issue) return { issue, events: [] };
+  const previousMass = mass(t);
+  const previousTemperature = t.temperature;
   t.used[id] = true; t.doses[id] = (t.doses[id] || 0) + 1;
   if (id === 'water' || id === 'distilled-water') change(t, 'water', WATER_DOSE);
   else if (solutions[id]) {
     change(t, 'water', WATER_DOSE);
     for (const [ion, coefficient] of Object.entries(solutions[id])) change(t, ion, DOSE * coefficient);
   } else change(t, id, DOSE);
+  // Incoming reagents are at 25°C; equal-specific-heat mixing approximation.
+  const mixedMass = mass(t);
+  if (mixedMass > 0) t.temperature = 25 + (previousTemperature - 25) * previousMass / mixedMass;
   return { issue: null, events: react(t) };
 }
 const reaction = (id, name, equation, note = '') => ({ id, name, equation, note });
@@ -102,9 +107,15 @@ export function react(t) {
         if (chemicals[id].state === 'gas') emitGas(t, id, n * c); else change(t, id, n * c);
       }
       moved += n;
+      if (event[0] === 'neutralization') {
+        const heat = n * 57300; // J, dilute strong-acid/strong-base approximation
+        t.reactionHeat = (t.reactionHeat || 0) + heat;
+        t.temperature += heat / (mass(t) * 4.184);
+        event[3] = `중화열 ${heat.toFixed(2)} J 방출 · 용액 비열 4.184 J/(g·°C), 단열 근사`;
+      }
       record(...event);
     };
-    consume('h', 1, 'oh', 1, { water: 1 }, ['neutralization', '산·염기 중화', 'H⁺(aq) + OH⁻(aq) → H₂O(l)', '발열 반응이며 수용액은 25°C 항온 조건으로 유지합니다.']);
+    consume('h', 1, 'oh', 1, { water: 1 }, ['neutralization', '산·염기 중화', 'H⁺(aq) + OH⁻(aq) → H₂O(l)', '중화열로 용액의 온도가 상승합니다.']);
     consume('cao', 1, 'h', 2, { ca: 1, water: 1 }, ['oxide-acid', '산화칼슘과 산', 'CaO(s) + 2H⁺(aq) → Ca²⁺(aq) + H₂O(l)', '발열 반응입니다.']);
     consume('caoh2', 1, 'h', 2, { ca: 1, water: 2 }, ['lime-acid', '수산화칼슘과 산', 'Ca(OH)₂(s) + 2H⁺(aq) → Ca²⁺(aq) + 2H₂O(l)']);
     consume('caco3', 1, 'h', 2, { ca: 1, water: 1, co2: 1 }, ['carbonate-acid', '탄산칼슘과 산', 'CaCO₃(s) + 2H⁺(aq) → Ca²⁺(aq) + H₂O(l) + CO₂(g)', 'CO₂는 대기로 방출되는 완결 반응 근사입니다.']);
@@ -182,7 +193,7 @@ export function electrolyze(t, seconds) {
   return [];
 }
 export function heatingIssue(t) {
-  if (volume(t)>0) return '수용액은 25°C 항온 실험입니다. 끓음·증발을 계산하지 않으므로 가열하지 않습니다.';
+  if (volume(t)>0) return '수용액 외부 가열은 지원하지 않습니다. 끓음·증발을 계산하지 않으므로 가열하지 않습니다.';
   if (!Object.keys(t.contents).length || Object.keys(t.contents).some(id=>!['caco3','cao'].includes(id))) return '건조 탄산칼슘·산화칼슘의 가상 가열로만 지원합니다.';
   return null;
 }

@@ -1,11 +1,7 @@
 import * as model from './model.js';
 const { chemicals, inventory, amount, change, calculatePH, electricCurrent } = model;
 
-const toolTypes = {
-  beaker: { name: '비커', symbol: '▱' },
-  'test-tube': { name: '시험관', symbol: '▯' },
-  flask: { name: '삼각 플라스크', symbol: '△' }
-};
+const toolTypes = { beaker: { name: '비커', symbol: '▱' } };
 
 const reactions = [
   { equation: '2H₂O(l) → 2H₂(g) + O₂(g)' },
@@ -18,7 +14,7 @@ const reactions = [
 
 const reactionExplanations = {
   electrolysis: { observation: '양쪽 전극에서 기포가 발생하고 수소와 산소가 2:1의 몰비로 생성됩니다.', reason: '불활성 전극에서 음극은 환원으로 수소, 양극은 산화로 산소를 만듭니다. 누적 전하량에 비례하며 전류 효율 100%를 가정합니다. 염화물 등 경쟁 전극 반응이 있는 혼합물은 생성량 계산을 지원하지 않습니다.' },
-  neutralization: { observation: '같은 양의 강산·강염기가 중화되면 25°C에서 pH가 약 7이 됩니다. 발열하며 항온 조건으로 온도를 유지합니다.', reason: '산의 H⁺와 염기의 OH⁻가 결합해 물이 되며, 이 과정에서 열에너지가 방출됩니다.' },
+  neutralization: { observation: '같은 양의 강산·강염기가 중화되면 25°C에서 pH가 약 7이 됩니다. 중화열로 온도가 상승합니다. 묽은 용액에서는 상승폭이 작습니다.', reason: '산의 H⁺와 염기의 OH⁻가 결합해 물이 되며, 이 과정에서 열에너지가 방출됩니다.' },
   decomposition: { observation: '고체가 남은 상태에서 이산화탄소 기체가 발생합니다.', reason: '탄산칼슘이 열을 흡수해 분해됩니다. 825°C는 이 모델의 설정값이며 실제 분해 조건은 CO₂ 분압과 가열 시간 등에 따라 달라집니다.' },
   precipitation: { observation: '투명한 용액이 뿌옇게 변하고 흰색 고체가 바닥에 쌓입니다.', reason: 'Ag⁺와 Cl⁻가 결합해 물에 거의 녹지 않는 염화은 고체를 만들기 때문입니다.' },
   'zinc-acid': { observation: '아연 표면에서 기포가 발생하며 아연의 양이 줄어듭니다.', reason: '아연이 전자를 잃어 Zn²⁺가 되고, 수소 이온은 전자를 받아 수소 기체가 됩니다.' },
@@ -37,27 +33,27 @@ const challenges = [
 ];
 
 const guides = [
-  { title: '01 — 물의 전기분해', theory: '황산나트륨 수용액을 넣고 6.0 V를 공급하세요. 불활성 전극·효율 100%에서 실제 경과 시간과 전류로 생성량을 계산합니다.', steps: [['황산나트륨 수용액 넣기', 'add:sulfate'], ['6.0 V 전기 공급하기', 'power'], ['잠시 기다려 발생한 기체 확인하기', 'reaction:electrolysis']] },
-  { title: '02 — 산·염기 중화', theory: '같은 몰수의 염산과 수산화나트륨을 반응시킵니다.', steps: [['염산 넣기', 'add:hcl'], ['수산화나트륨 넣기', 'add:naoh'], ['중화 반응 확인하기', 'reaction:neutralization']] },
-  { title: '03 — 탄산칼슘 열분해', theory: '건조 시료를 가상 가열로에서 가열합니다. 825°C는 시연용 기준이며 실제 온도·시간·CO₂ 분압에 따른 분해율은 예측하지 않습니다.', steps: [['탄산칼슘 넣기', 'add:caco3'], ['825°C 이상까지 가열하기', 'reaction:decomposition']] },
-  { title: '04 — 염화은 침전', theory: '은 이온과 염화 이온을 반응시켜 흰색 침전을 만듭니다.', steps: [['질산은 넣기', 'add:agno3'], ['염화 이온을 포함한 물질 넣기 (NaCl·HCl)', 'add:nacl'], ['침전 확인하기', 'reaction:precipitation']] },
-  { title: '05 — 아연과 염산', theory: 'Zn:HCl의 몰비를 1:2로 맞춰 수소를 발생시킵니다.', steps: [['아연 넣기', 'add:zinc'], ['염산 한 번 넣기', 'add:hcl'], ['염산 한 번 더 넣기', 'add:hcl'], ['수소 발생 확인하기', 'reaction:zinc-acid']] },
+  { title: '01 — 물의 전기분해', theory: '황산나트륨 수용액을 넣고 전기를 공급하세요.', steps: [['황산나트륨 수용액 넣기', 'add:sulfate'], ['전기 공급하기', 'power'], ['발생한 기체 관찰하기', 'reaction:electrolysis']] },
+  { title: '02 — 산·염기 중화', theory: '염산과 수산화나트륨을 한 번씩 넣고 온도 변화를 관찰하세요.', steps: [['염산 넣기', 'add:hcl'], ['수산화나트륨 넣기', 'add:naoh'], ['중화 반응 확인하기', 'reaction:neutralization']] },
+  { title: '03 — 탄산칼슘 열분해', theory: '탄산칼슘을 넣고 가열하세요.', steps: [['탄산칼슘 넣기', 'add:caco3'], ['825°C 이상까지 가열하기', 'reaction:decomposition']] },
+  { title: '04 — 염화은 침전', theory: '질산은과 염화나트륨 수용액을 넣고 흰색 침전을 관찰하세요.', steps: [['질산은 넣기', 'add:agno3'], ['염화나트륨 수용액 넣기', 'add:nacl'], ['침전 확인하기', 'reaction:precipitation']] },
+  { title: '05 — 아연과 염산', theory: '아연을 한 번, 염산을 두 번 넣고 기체 발생을 관찰하세요.', steps: [['아연 넣기', 'add:zinc'], ['염산 한 번 넣기', 'add:hcl'], ['염산 한 번 더 넣기', 'add:hcl'], ['수소 발생 확인하기', 'reaction:zinc-acid']] },
   {
     title: 'Q1 — 절연성 용액 만들기', quiz: true,
-    theory: '이온이 적어 추정 전류가 작은 용액을 만드세요.',
-    goal: '증류수와 설탕을 모두 사용하고 6.0 V를 공급했을 때 전류를 0.1 mA 미만으로 만드시오.',
+    theory: '증류수와 설탕을 넣고 전류를 확인하세요.',
+    goal: '증류수와 설탕 넣기 → 전기 공급 → 전류 0.1 mA 미만',
     check: (tool) => !!tool && tool.used['distilled-water'] && tool.used.sugar && tool.voltage > 0 && model.volume(tool) > 0 && electricCurrent(tool) !== null && electricCurrent(tool) < 0.1
   },
   {
     title: 'Q2 — 소금으로 전도성 만들기', quiz: true,
-    theory: '이온이 자유롭게 이동할 수 있을 때 수용액에 전류가 흐릅니다.',
-    goal: '고체 염화나트륨을 반드시 사용해 6.0 V에서 10 mA 이상의 전류가 흐르게 하시오.',
+    theory: '물과 고체 염화나트륨을 넣고 전류를 확인하세요.',
+    goal: '물과 고체 염화나트륨 넣기 → 전기 공급 → 전류 10 mA 이상',
     check: (tool) => !!tool && tool.used['solid-salt'] && tool.voltage > 0 && model.volume(tool) > 0 && electricCurrent(tool) !== null && electricCurrent(tool) >= 10
   },
   {
     title: 'Q3 — NaOH 없이 염기성 만들기', quiz: true,
-    theory: '한 가지 염기만이 용액을 염기성으로 만드는 것은 아닙니다.',
-    goal: '수산화나트륨을 사용하지 않고 pH 10 이상의 용액을 만드시오.',
+    theory: '산화칼슘과 물을 넣고 pH를 확인하세요.',
+    goal: '수산화나트륨 없이 산화칼슘과 물로 pH 10 이상 만들기',
     check: (tool) => !!tool && !tool.used.naoh && !!tool.occurred['lime-water'] && calculatePH(tool) >= 10
   }
 ];
@@ -190,10 +186,11 @@ function addChemical(id, targetToolId = state.selectedToolId) {
   recordReactions(tool, result.events);
   advanceGuide();
   render();
+  if (id === 'sulfate' || id === 'caco3') tutorialAction(id);
 }
 
 function createLabTool(type) {
-  if (state.guideIndex >= 0) return;
+  if (state.guideIndex >= 0 || type !== 'beaker') return;
   if (state.tools.length >= 6) { addEvent('도구 배치 제한', '최대 6개의 도구를 동시에 사용할 수 있습니다.'); render(); return; }
   rememberState();
   const tool = makeTool(type);
@@ -221,6 +218,7 @@ function stepElectrical(seconds) {
   });
   advanceGuide();
   render();
+  if (selectedTool()?.occurred.electrolysis) tutorialAction('power');
 }
 function settleElectrical() {
   if (!electricalTimer) return;
@@ -299,13 +297,13 @@ function toolVisual(tool) {
       <div class="bubbles" style="display:${tool.voltage > 0 && !model.electrolysisIssue(tool) && gas >= 1e-8 ? 'block' : 'none'}"><i></i><i></i><i></i><i></i></div>
       <div class="precipitate" style="display:${hasSolid ? 'block' : 'none'}"></div>
     </div><div class="scale"><i></i><i></i><i></i></div></div>
-    <b>${tool.label}</b><span>${total ? `${total.toFixed(2)} mol · ${tool.temperature.toFixed(0)}°C` : `비어 있음 · ${tool.temperature.toFixed(0)}°C`}</span>`;
+    <b>${tool.label}</b><span>${total ? `${total.toFixed(2)} mol · ${tool.temperature.toFixed(2)}°C` : `비어 있음 · ${tool.temperature.toFixed(2)}°C`}</span>`;
 }
 
 function renderTools() {
   const area = $('#toolArea');
   if (!state.tools.length) {
-    area.innerHTML = '<div class="tool-area-empty">위의 LAB TOOLS에서 도구를 클릭해<br>실험대에 꺼내세요.</div>';
+    area.innerHTML = '<div class="tool-area-empty">오른쪽의 비커 추가를 눌러<br>실험대에 꺼내세요.</div>';
     return;
   }
   state.tools.forEach((tool) => {
@@ -339,15 +337,10 @@ function render() {
   $('#deleteToolButton').disabled = !tool;
   const entries = tool ? Object.entries(tool.contents) : [];
   const gas = Object.values(tool?.gases || {}).reduce((sum, n) => sum + n, 0);
-  const mass = model.mass(tool);
-  $('#temperature').textContent = tool ? `${tool.temperature.toFixed(0)}°C` : '—';
+  $('#temperature').textContent = tool ? `${tool.temperature.toFixed(2)}°C` : '—';
   $('#ph').textContent = calculatePH(tool)?.toFixed(1) ?? '—';
-  $('#mass').textContent = tool ? `${mass.toFixed(1)} g` : '—';
-  $('#gas').textContent = tool ? `${(gas * 1e6).toPrecision(4)} µmol` : '—';
   $('#voltage').textContent = tool ? `${tool.voltage.toFixed(1)} V` : '—';
   $('#current').textContent = electricCurrent(tool) === null ? '—' : `${electricCurrent(tool).toFixed(3)} mA`;
-  $('#volume').textContent = tool ? `${(model.volume(tool)*1000).toFixed(2)} mL` : '—';
-  $('#charge').textContent = tool ? `${tool.charge.toPrecision(4)} C / ${tool.elapsed.toFixed(1)} s` : '—';
   const issues = tool ? [model.phIssue(tool), model.currentIssue(tool), tool.voltage > 0 ? model.electrolysisIssue(tool) : null].filter(Boolean) : [];
   $('#modelNotice').textContent = [...new Set(issues)].join(' ');
   $('#composition').classList.toggle('empty', !entries.length);
@@ -359,6 +352,7 @@ function render() {
   $('#powerButton').innerHTML = tool?.voltage ? '<strong>ϟ</strong>전기 차단 <small>현재 6.0 V</small>' : '<strong>ϟ</strong>전기 공급 <small>선택 도구 6.0 V</small>';
   ['heatButton', 'coolButton', 'powerButton'].forEach((id) => { $(`#${id}`).disabled = !tool; });
   $('#undoButton').disabled = history.length === 0;
+  renderTutorial();
   $('#eventCount').textContent = `${state.events.length} events`;
   $('#eventLog').innerHTML = state.events.length ? state.events.map((event) => `<article class="${event.reaction ? 'reaction' : ''}"><time>${String(event.number).padStart(2, '0')}</time><div><b>${event.title}</b><p>${event.detail}</p></div></article>`).join('') : '<p class="empty-log">실험을 시작하면 조작과 반응이 기록됩니다.</p>';
 }
@@ -383,6 +377,7 @@ function startHeatTimer(toolId) {
     const tool = state.tools.find((item) => item.id === toolId);
     if (!tool || !tool.heating) return clearThermalTimer();
     tool.temperature = Math.min(1000, tool.temperature + 100);
+    tutorialAction('heat');
     advanceGuide(runReactions(tool));
     if (tool.temperature >= 1000) {
       tool.heating = false;
@@ -415,7 +410,7 @@ function toggleHeating() {
   rememberState();
   if (tool.heating) {
     tool.heating = false; clearThermalTimer();
-    return perform(tool, 'heat-off', '가열 중지', `현재 온도 ${tool.temperature.toFixed(0)}°C에서 중지했습니다.`);
+    return perform(tool, 'heat-off', '가열 중지', `현재 온도 ${tool.temperature.toFixed(2)}°C에서 중지했습니다.`);
   }
   stopOtherThermalProcesses(tool.id);
   tool.cooling = false; tool.heating = true;
@@ -428,7 +423,7 @@ function toggleCooling() {
   rememberState();
   if (tool.cooling) {
     tool.cooling = false; clearThermalTimer();
-    return perform(tool, 'cool-off', '냉각 중지', `현재 온도 ${tool.temperature.toFixed(0)}°C에서 중지했습니다.`);
+    return perform(tool, 'cool-off', '냉각 중지', `현재 온도 ${tool.temperature.toFixed(2)}°C에서 중지했습니다.`);
   }
   stopOtherThermalProcesses(tool.id);
   tool.heating = false; tool.cooling = true;
@@ -536,9 +531,11 @@ function attachToolInteractions() {
     });
     const stop = (event) => {
       if (!drag) return;
+      const moved = drag.moved;
       drag = null; activeDragToolId = null; element.classList.remove('moving');
       if (element.hasPointerCapture(event.pointerId)) element.releasePointerCapture(event.pointerId);
       render();
+      if (moved && event.type !== 'pointercancel') tutorialAction('move');
     };
     element.addEventListener('pointerup', stop);
     element.addEventListener('pointercancel', stop);
@@ -557,6 +554,7 @@ function attachToolInteractions() {
       tool.y = Math.max(0, Math.min(area.clientHeight - element.offsetHeight, tool.y + directions[event.key][1]));
       element.style.left = `${tool.x}px`; element.style.top = `${tool.y}px`;
       render();
+      tutorialAction('move');
     });
   });
 }
@@ -567,12 +565,31 @@ function initialize() {
     + '<optgroup label="과학 퀴즈">' + guides.slice(5).map((guide, index) => `<option value="${index + 5}">${guide.title}</option>`).join('') + '</optgroup>';
   $('#guideSelect').value = String(state.guideIndex);
   $('#guideSelect').addEventListener('change', (event) => { state.guideIndex = Number(event.target.value); reset(); });
-  $('#chemicalList').innerHTML = inventory.map((id) => `<button draggable="true" data-id="${id}"><i style="background:${chemicals[id].color}"></i><span><b>${chemicals[id].name}</b><small>${chemicals[id].formula} · ${model.doseLabel(id)}</small></span><em>+</em></button>`).join('');
+  $('#chemicalList').innerHTML = inventory.map((id) => `<button draggable="true" data-id="${id}"><i style="background:${chemicals[id].color}"></i><span><b>${chemicals[id].name}</b><small class="chemical-dose"><span>${chemicals[id].formula}</span></small></span><em>+</em></button>`).join('');
+  const search = $('#chemicalSearch');
+  const normalizeChemicalSearch = (text) => text.normalize('NFKC').toLowerCase().replace(/\s+/g, '');
+  const filterChemicals = () => {
+    const query = normalizeChemicalSearch(search.value);
+    let matches = 0;
+    document.querySelectorAll('#chemicalList button').forEach((button) => {
+      const chemical = chemicals[button.dataset.id];
+      const match = normalizeChemicalSearch(`${chemical.name} ${chemical.formula}`).includes(query);
+      button.hidden = !match;
+      if (match) matches++;
+    });
+    $('#chemicalSearchEmpty').hidden = matches > 0;
+  };
+  $('#chemicalSearchToggle').addEventListener('click', (event) => {
+    search.hidden = !search.hidden;
+    event.currentTarget.setAttribute('aria-expanded', String(!search.hidden));
+    if (search.hidden) { search.value = ''; filterChemicals(); } else search.focus();
+  });
+  search.addEventListener('input', filterChemicals);
   document.querySelectorAll('#chemicalList button').forEach((button) => {
     button.addEventListener('click', () => addChemical(button.dataset.id));
     button.addEventListener('dragstart', (event) => event.dataTransfer.setData('text/chemical', button.dataset.id));
   });
-  $('#toolList').innerHTML = Object.entries(toolTypes).map(([id, tool]) => `<button data-tool-type="${id}"><i>${tool.symbol}</i><span><b>${tool.name}</b><small>꺼내기</small></span><em>+</em></button>`).join('');
+  $('#toolList').innerHTML = Object.entries(toolTypes).map(([id, tool]) => `<button data-tool-type="${id}"><i>${tool.symbol}</i><span><b>${tool.name} 추가</b><small>실험대에 꺼내기</small></span><em>+</em></button>`).join('');
   document.querySelectorAll('#toolList button').forEach((button) => button.addEventListener('click', () => createLabTool(button.dataset.toolType)));
   $('#heatButton').addEventListener('click', toggleHeating);
   $('#coolButton').addEventListener('click', toggleCooling);
@@ -604,4 +621,136 @@ function initialize() {
   reset();
 }
 
+const tutorialSteps = [
+  ['실험실에 오신 것을 환영해요', '첫 실험은 물의 전기분해예요. 강조된 곳을 직접 조작하며 실험실을 익혀 보세요.', '#guideIntro', 'next'],
+  ['재료를 넣어요', '오른쪽 재료에서 황산나트륨 수용액을 탭하세요. 한 번 탭할 때 표시된 양이 들어가요.', '[data-id="sulfate"]', 'sulfate'],
+  ['실수해도 괜찮아요', '되돌리기를 눌러 방금 넣은 재료를 취소해 보세요.', '#undoButton', 'undo'],
+  ['다시 준비해요', '황산나트륨 수용액을 다시 넣어 주세요. 재료를 비커로 끌어 넣어도 돼요.', '[data-id="sulfate"]', 'sulfate'],
+  ['전기를 공급해요', '전기 공급을 누르면 6.0 V가 걸려요. 기포가 생길 때까지 잠깐 기다려 보세요.', '#powerButton', 'power'],
+  ['기체가 만들어졌어요', '수소와 산소가 생성됐어요! 아래 계산값과 실험 기록에서 기체의 양과 반응을 살펴보세요.', '.measurements', 'next'],
+  ['전기를 꺼요', '같은 버튼을 다시 누르면 전기가 차단돼요. 생성된 기체와 발견 기록은 남아요.', '#powerButton', 'power-off'],
+  ['발견을 확인해요', '현상 도감을 열어 방금 발견한 「두 종류의 기체」의 원인과 반응식을 읽어 보세요. 읽은 뒤 도감을 닫으세요.', '#compendiumButton', 'compendium'],
+  ['다른 실험도 골라요', '실험 선택 메뉴에서 「03 — 탄산칼슘 열분해」를 선택하세요. 실험을 바꾸면 비커는 비워져요.', '#guideSelect', 'guide'],
+  ['가열할 시료를 준비해요', '탄산칼슘을 한 번 넣으세요. 가열은 건조 탄산칼슘·산화칼슘만 지원해요.', '[data-id="caco3"]', 'caco3'],
+  ['온도를 올려요', '가열을 누르고 온도가 오르는 것을 기다려 보세요. 같은 버튼을 누르면 멈출 수 있어요.', '#heatButton', 'heat'],
+  ['온도를 내려요', '냉각을 눌러 보세요. 가열이 멈추고 온도가 25°C까지 내려가요.', '#coolButton', 'cool'],
+  ['준비 완료!', '기본 조작을 모두 체험했어요. 첫 실험으로 돌아가 다시 시작하거나, 실험 메뉴에서 자유 실험을 골라 비커를 추가하고 여러 재료를 조합해 보세요. 위의 초기화는 현재 실험을 비우고, 도감 발견은 유지해요.', '#guideSelect', 'finish']
+];
+let tutorialIndex = -1;
+let tutorialSawCompendium = false;
+let tutorialRenderedIndex = -1;
+let tutorialScrollFrame = null;
+function saveTutorial() { try { localStorage.setItem('lab-tutorial-v1', 'done'); } catch {} }
+function endTutorial() {
+  tutorialIndex = -1;
+  tutorialRenderedIndex = -1;
+  if (tutorialScrollFrame !== null) cancelAnimationFrame(tutorialScrollFrame);
+  saveTutorial();
+  $('#tutorialCard').hidden = true;
+  document.querySelectorAll('.tutorial-target').forEach(el => el.classList.remove('tutorial-target'));
+}
+function startTutorial() {
+  $('#compendiumDialog').close();
+  state.guideIndex = 0; $('#guideSelect').value = '0';
+  tutorialIndex = 0; tutorialSawCompendium = false; reset();
+  renderTutorial();
+}
+function renderTutorial(scroll = false) {
+  if (tutorialIndex < 0) return;
+  const [title, text, selector, action] = tutorialSteps[tutorialIndex];
+  document.querySelectorAll('.tutorial-target').forEach(el => el.classList.remove('tutorial-target'));
+  const target = $(selector);
+  target?.classList.add('tutorial-target');
+  $('#tutorialCard').hidden = false;
+  if (tutorialRenderedIndex !== tutorialIndex) {
+  tutorialRenderedIndex = tutorialIndex;
+  $('#tutorialProgress').textContent = `처음 실험 안내 · ${tutorialIndex + 1} / ${tutorialSteps.length}`;
+  $('#tutorialTitle').textContent = title;
+  $('#tutorialText').textContent = text;
+  $('#tutorialNext').hidden = !['next', 'finish'].includes(action);
+  $('#tutorialNext').textContent = action === 'finish' ? '첫 실험으로 돌아가기' : '확인했어요';
+  }
+  if (scroll && target) revealTutorialTarget(target);
+}
+// Keep the current view whenever the next control is already usable.
+function revealTutorialTarget(target) {
+  if (tutorialScrollFrame !== null) cancelAnimationFrame(tutorialScrollFrame);
+  const index = tutorialIndex;
+  tutorialScrollFrame = requestAnimationFrame(() => {
+    tutorialScrollFrame = null;
+    if (index !== tutorialIndex || !target.isConnected || $('#compendiumDialog').open) return;
+    const behavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
+    const tray = target.closest('.chemical-tray');
+    if (tray && tray.scrollHeight > tray.clientHeight) {
+      const box = tray.getBoundingClientRect();
+      const rect = target.getBoundingClientRect();
+      const delta = rect.top < box.top + 12 ? rect.top - box.top - 12
+        : rect.bottom > box.bottom - 12 ? rect.bottom - box.bottom + 12 : 0;
+      if (Math.abs(delta) > 8) tray.scrollBy({ top: delta, behavior });
+    }
+    const rect = target.getBoundingClientRect();
+    const card = $('#tutorialCard').getBoundingClientRect();
+    const top = Math.max(12, card.bottom + 16);
+    const controls = $('.guide-tools').getBoundingClientRect();
+    const bottom = innerWidth < 700 ? Math.min(innerHeight - 16, controls.top - 16) : innerHeight - 16;
+    // Large panels only need their heading and first rows visible.
+    const visibleHeight = Math.min(rect.height, 120, Math.max(44, bottom - top));
+    const delta = rect.top < top ? rect.top - top
+      : rect.top + visibleHeight > bottom ? rect.top + visibleHeight - bottom : 0;
+    if (Math.abs(delta) > 8) window.scrollBy({ top: delta, behavior });
+  });
+}
+function tutorialAction(action) {
+  if (tutorialIndex < 0 || tutorialSteps[tutorialIndex][3] !== action) return;
+  tutorialIndex++;
+  renderTutorial(true);
+}
+function initializeTutorial() {
+  $('#tutorialStart').addEventListener('click', startTutorial);
+  $('#tutorialSkip').addEventListener('click', endTutorial);
+  $('#tutorialNext').addEventListener('click', () => {
+    if (tutorialSteps[tutorialIndex]?.[3] === 'finish') {
+      endTutorial(); state.guideIndex = 0; $('#guideSelect').value = '0'; reset();
+    } else tutorialAction('next');
+  });
+  document.addEventListener('click', event => {
+    if (tutorialIndex < 0 || event.target.closest('#tutorialCard, #tutorialStart, #compendiumDialog')) return;
+    const [, , selector, action] = tutorialSteps[tutorialIndex];
+    const control = event.target.closest('button, select, a, [data-tool-id]');
+    if (!control) return;
+    const allowed = event.target.closest(selector);
+    if (!allowed || ['next', 'finish'].includes(action)) {
+      event.preventDefault(); event.stopPropagation();
+      renderTutorial();
+    }
+  }, true);
+  document.addEventListener('click', event => {
+    if (tutorialIndex < 0) return;
+    const el = event.target;
+    const tool = selectedTool();
+    if (el.closest('[data-tool-id]')) tutorialAction('select');
+    if (el.closest('[data-id="sulfate"]') && tool?.used.sulfate) tutorialAction('sulfate');
+    if (el.closest('#undoButton') && !tool?.used.sulfate) tutorialAction('undo');
+    if (el.closest('#powerButton') && tool?.voltage === 0) tutorialAction('power-off');
+    if (el.closest('#compendiumButton')) tutorialSawCompendium = true;
+    if (el.closest('[data-id="caco3"]') && tool?.used.caco3) tutorialAction('caco3');
+    if (el.closest('#coolButton') && tool?.cooling) tutorialAction('cool');
+  });
+  $('#compendiumDialog').addEventListener('close', () => {
+    if (tutorialSawCompendium) tutorialAction('compendium');
+  });
+  $('#guideSelect').addEventListener('change', () => {
+    if (state.guideIndex === 2) tutorialAction('guide');
+    else if (tutorialIndex >= 0) { tutorialIndex = 0; renderTutorial(true); }
+  });
+  $('#resetButton').addEventListener('click', () => {
+    if (tutorialIndex >= 0 && state.tools.length && !Object.keys(selectedTool().contents).length) {
+      tutorialIndex = state.guideIndex === 2 ? 9 : 1; renderTutorial(true);
+    }
+  });
+  let completed = false;
+  try { completed = localStorage.getItem('lab-tutorial-v1') === 'done'; } catch {}
+  if (!completed) startTutorial();
+}
 initialize();
+initializeTutorial();
